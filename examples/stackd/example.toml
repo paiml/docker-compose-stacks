@@ -1,0 +1,8 @@
+[example]
+title = "stackd and its compose file"
+summary = "an api with a healthcheck and volume, and a client that waits for it"
+run = "docker compose up --build client"
+
+[[files]]
+path = "../../compose.yaml"
+note = "api, client, volume and healthcheck"

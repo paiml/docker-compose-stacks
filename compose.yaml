@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    environment:
+      PORT: "8080"
+      DATA_FILE: /data/count
+    volumes:
+      - counter:/data
+    healthcheck:
+      test: ["CMD", "/stackd", "--health"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+  client:
+    image: alpine:latest
+    depends_on:
+      api:
+        condition: service_healthy
+    command: sh -c 'wget -qO- http://api:8080/hit && echo && wget -qO- http://api:8080/hit'
+volumes:
+  counter:
