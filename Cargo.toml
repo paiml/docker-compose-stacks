@@ -1,0 +1,24 @@
+[package]
+name = "stackd"
+version = "0.1.0"
+edition = "2021"
+description = "Tiny HTTP counter service used to teach Docker Compose stacks"
+license = "MIT"
+publish = false
+exclude = ["scripts/", "contracts/", ".github/"]
+
+[lib]
+name = "stackd"
+path = "src/lib.rs"
+
+[[bin]]
+name = "stackd"
+path = "src/main.rs"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+
+[workspace]

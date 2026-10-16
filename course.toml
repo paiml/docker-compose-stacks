@@ -1,0 +1,12 @@
+[course]
+slug = "docker-compose-stacks"
+number = 3
+title = "Docker Compose Stacks"
+tagline = "Services, networks, volumes and healthchecks that start in order."
+description = "Tested Rust code for the third course of the Docker specialization: stackd is a small HTTP counter that Compose runs with a volume, a healthcheck and a dependent client."
+prerequisites = ["Docker 25 or newer with Compose v2", "Rust 1.80 or newer", "A Linux or macOS terminal"]
+
+[[examples]]
+dir = "examples/stackd"
+title = "stackd and its compose file"
+summary = "an api with a healthcheck and volume, and a client that waits for it"

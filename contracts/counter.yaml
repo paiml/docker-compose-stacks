@@ -1,0 +1,29 @@
+metadata:
+  version: 1.0.0
+  description: "The counter increments per hit and survives a restart through its data file"
+  references:
+  - 'Docker Compose volumes'
+equations:
+  counter_survives_restart:
+    formula: "load_count(save_count(n)) == n"
+    invariants:
+    - A missing or unreadable file counts as zero
+    preconditions:
+    - 'DATA_FILE lives on a volume'
+    postconditions:
+    - 'after compose down and up the next hit returns the previous count plus one'
+    lean_theorem: none_repository_fact
+proof_obligations:
+- type: invariant
+  property: "a saved count is read back unchanged"
+falsification_tests:
+- id: FALSIFY-STACK-001
+  rule: "counter persists"
+  prediction: "counter_file_round_trips_and_defaults_to_zero fails if the file is not read back"
+  if_fails: "a restart would reset the counter"
+kani_harnesses:
+- id: KANI-STACK-001
+  obligation: "a saved count is read back unchanged"
+  bound: 4
+  strategy: bounded_int
+  solver: cadical
